@@ -49,4 +49,22 @@ module.exports = {
             );
         });
     },
+     //declare function
+     addList: async function (name, store, date){
+        (await shopperDB).transaction(txn =>{
+                //execute the sql
+                txn.executeSql(
+                    `INSERT INTO ${listsTableName} (name, store, date) VALUES ("${name}", "${store}", "${date}")`,
+                 // arugements passed when using SQL prepared statemnets
+                [],
+                // callback function
+                () => {
+                    console.log(name + " added sucessfully");
+                },
+                error => {
+                    console.log('error adding list' + error.message);
+                },
+            );
+        });
+     },
 };

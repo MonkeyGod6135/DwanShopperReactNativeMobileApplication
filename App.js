@@ -14,7 +14,7 @@ import Router from './src/navigation/Router';
 const database = require('./src/components/Handlers/database.js');
 
 const App: () => Node = () => {
-  try{
+  try {
     database.createListsTable();
   } catch (error){
     console.log('Failed to create lists table'+ error);
