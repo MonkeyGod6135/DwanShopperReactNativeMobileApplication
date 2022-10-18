@@ -4,6 +4,7 @@ import {openDatabase} from "react-native-sqlite-storage";
 //use hook to open database
 const shopperDB = openDatabase({name: 'Shopper.db'});
 const listsTableName = 'lists';
+const itemsTableName = 'items';
 
 module.exports = {
     // declare function that will create lists table
@@ -67,4 +68,49 @@ module.exports = {
             );
         });
      },
+     // declare function that will create lists table
+    createItemsTable: async function() {
+        //declare a transaction that will execute a sql statement
+        (await shopperDB).transaction(txn => {
+            //execute the sql
+            txn.executeSql(
+                `CREATE TABLE IF NOT EXISTS ${itemsTableName}(
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    name TEXT(100),
+                    price REAL,
+                    quanitiy INTEGER
+                );`,
+                // arguements needed when using an SQL PREPARED statement
+                [],
+                // callback function to handle results of SQL
+                () => {
+                    console.log('Items table created successfully');
+                },
+                error => {
+                    console.log('error creating items table' + error.message);
+                },
+            );
+        });
+    },
+
+    addItem: async function(name, price, quanitiy){
+        // declare a transaction that will execute an SQL statement
+        (await shopperDB).transaction(txn => {
+            txn.executeSql(
+                `INSERT INTO ${itemsTableName} (name, store, date) VALUES ("${name}", ${price}, ${quanitiy})`,
+                // arugements passed when using SQL prepared statemnets
+                [],
+                // callback function
+                () => {
+                    console.log(name + " added sucessfully");
+                },
+                error => {
+                    console.log('error adding item' + error.message);
+                },
+            );
+        });
+    },
+     
+     
+
 };

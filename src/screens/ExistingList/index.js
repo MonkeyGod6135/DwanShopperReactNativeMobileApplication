@@ -4,7 +4,6 @@ import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
 // import openDatabase hook
 import {openDatabase} from "react-native-sqlite-storage";
-
 //use hook to open database
 const shopperDB = openDatabase({name: 'Shopper.db'});
 const listsTableName = 'lists';
@@ -75,7 +74,7 @@ const ExistingListScreen = props => {
                             );
                         });
                         alert('List deleted!');
-                        navigation.navigate('Start Shopping List!');
+                        navigation.navigate('Start Shopping!');
                     },
                 },
                 {
