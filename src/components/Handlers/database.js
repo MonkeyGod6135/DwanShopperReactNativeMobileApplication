@@ -93,11 +93,11 @@ module.exports = {
         });
     },
 
-    addItem: async function(name, price, quanitiy){
+    addItem: async function(name, price, quantity){
         // declare a transaction that will execute an SQL statement
         (await shopperDB).transaction(txn => {
             txn.executeSql(
-                `INSERT INTO ${itemsTableName} (name, store, date) VALUES ("${name}", ${price}, ${quanitiy})`,
+                `INSERT INTO ${itemsTableName} (name, price, quantity) VALUES ("${name}", ${price}, ${quantity})`,
                 // arugements passed when using SQL prepared statemnets
                 [],
                 // callback function
